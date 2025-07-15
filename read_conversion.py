@@ -15,20 +15,18 @@ columns_name = [
     "ENTE_FEDERATIVO_RESPONSÁVEL",
 ]
 
-dfs = []
 
 for data_file in lst_input_data:
     data_path = f"input/{data_file}"
     output_path = f"output/{data_file.replace('.','_')}.parquet"
     print(data_path)
     df_cnpj = pd.read_csv(
-        data_path, dtype=str, sep=";", encoding="Latin-1", names=columns_name
+        data_path,
+        dtype=str,
+        sep=";",
+        encoding="Latin-1",
+        names=columns_name,
+        usecols=["CNPJ_BÁSICO", "RAZÃO_SOCIAL"],
     )
     print(output_path)
     df_cnpj.to_parquet(output_path, index=False, engine="pyarrow")
-
-    dfs.append(df_cnpj[["CNPJ_BÁSICO", "RAZÃO_SOCIAL"]])
-
-df_cnpj_nome = pd.concat(dfs)
-df_cnpj_nome.to_parquet('cnpj_nome.parquet', index=False, engine="pyarrow")
-
