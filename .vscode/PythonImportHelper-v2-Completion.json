@@ -26,66 +26,38 @@
         "documentation": {}
     },
     {
-        "label": "file_path",
-        "kind": 5,
-        "importPath": "cnpj_map",
-        "description": "cnpj_map",
-        "peekOfCode": "file_path = r\"C:\\Users\\francesco.benedetto\\Downloads\\Duplinhas_para_Antecipoo.xlsx\"\ndf_cnpj = pd.read_excel(file_path, usecols=[\"ds_cnpj_usuf\"], dtype=str, sheet_name=\"Duplinhas\")\ndf_cnpj[\"raiz\"] = df_cnpj[\"ds_cnpj_usuf\"].str[:8]\nset_cnpjs = set(df_cnpj[\"raiz\"])\nlst_names = []\nparquet_files = [f for f in os.listdir(\"output\") if f.endswith(\".parquet\")]\nfor parquet_path in tqdm(parquet_files, desc='Lendo arquivos parquet:'):\n    full_path = os.path.join(\"output\", parquet_path)\n    itp = pd.read_parquet(full_path, engine=\"fastparquet\").itertuples(index=False)\n    df_temp = pd.DataFrame([",
-        "detail": "cnpj_map",
+        "label": "logging",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "logging",
+        "description": "logging",
+        "detail": "logging",
         "documentation": {}
     },
     {
-        "label": "df_cnpj",
-        "kind": 5,
-        "importPath": "cnpj_map",
-        "description": "cnpj_map",
-        "peekOfCode": "df_cnpj = pd.read_excel(file_path, usecols=[\"ds_cnpj_usuf\"], dtype=str, sheet_name=\"Duplinhas\")\ndf_cnpj[\"raiz\"] = df_cnpj[\"ds_cnpj_usuf\"].str[:8]\nset_cnpjs = set(df_cnpj[\"raiz\"])\nlst_names = []\nparquet_files = [f for f in os.listdir(\"output\") if f.endswith(\".parquet\")]\nfor parquet_path in tqdm(parquet_files, desc='Lendo arquivos parquet:'):\n    full_path = os.path.join(\"output\", parquet_path)\n    itp = pd.read_parquet(full_path, engine=\"fastparquet\").itertuples(index=False)\n    df_temp = pd.DataFrame([\n        row for row in tqdm(itp, desc=f\"Processando {parquet_path}\")",
-        "detail": "cnpj_map",
+        "label": "Faker",
+        "importPath": "faker",
+        "description": "faker",
+        "isExtraImport": true,
+        "detail": "faker",
         "documentation": {}
     },
     {
-        "label": "df_cnpj[\"raiz\"]",
+        "label": "faker",
         "kind": 5,
-        "importPath": "cnpj_map",
-        "description": "cnpj_map",
-        "peekOfCode": "df_cnpj[\"raiz\"] = df_cnpj[\"ds_cnpj_usuf\"].str[:8]\nset_cnpjs = set(df_cnpj[\"raiz\"])\nlst_names = []\nparquet_files = [f for f in os.listdir(\"output\") if f.endswith(\".parquet\")]\nfor parquet_path in tqdm(parquet_files, desc='Lendo arquivos parquet:'):\n    full_path = os.path.join(\"output\", parquet_path)\n    itp = pd.read_parquet(full_path, engine=\"fastparquet\").itertuples(index=False)\n    df_temp = pd.DataFrame([\n        row for row in tqdm(itp, desc=f\"Processando {parquet_path}\")\n        if row.CNPJ_BÁSICO in set_cnpjs",
-        "detail": "cnpj_map",
+        "importPath": "fake_cnpjs",
+        "description": "fake_cnpjs",
+        "peekOfCode": "faker = Faker(locale=\"pt-br\")\nset_cnpj = {\"\".join(filter(str.isdigit, faker.cnpj())) for i in range(10000)}\nwith open(\"cnpj/cnpjs.csv\", \"w+\") as arquivo:\n    arquivo.write(\"ds_cnpj_usuf\\n\")\n    for cnpj in set_cnpj:\n        arquivo.write(cnpj + \"\\n\")",
+        "detail": "fake_cnpjs",
         "documentation": {}
     },
     {
-        "label": "set_cnpjs",
+        "label": "set_cnpj",
         "kind": 5,
-        "importPath": "cnpj_map",
-        "description": "cnpj_map",
-        "peekOfCode": "set_cnpjs = set(df_cnpj[\"raiz\"])\nlst_names = []\nparquet_files = [f for f in os.listdir(\"output\") if f.endswith(\".parquet\")]\nfor parquet_path in tqdm(parquet_files, desc='Lendo arquivos parquet:'):\n    full_path = os.path.join(\"output\", parquet_path)\n    itp = pd.read_parquet(full_path, engine=\"fastparquet\").itertuples(index=False)\n    df_temp = pd.DataFrame([\n        row for row in tqdm(itp, desc=f\"Processando {parquet_path}\")\n        if row.CNPJ_BÁSICO in set_cnpjs\n    ])",
-        "detail": "cnpj_map",
-        "documentation": {}
-    },
-    {
-        "label": "lst_names",
-        "kind": 5,
-        "importPath": "cnpj_map",
-        "description": "cnpj_map",
-        "peekOfCode": "lst_names = []\nparquet_files = [f for f in os.listdir(\"output\") if f.endswith(\".parquet\")]\nfor parquet_path in tqdm(parquet_files, desc='Lendo arquivos parquet:'):\n    full_path = os.path.join(\"output\", parquet_path)\n    itp = pd.read_parquet(full_path, engine=\"fastparquet\").itertuples(index=False)\n    df_temp = pd.DataFrame([\n        row for row in tqdm(itp, desc=f\"Processando {parquet_path}\")\n        if row.CNPJ_BÁSICO in set_cnpjs\n    ])\n    lst_names.append(df_temp)",
-        "detail": "cnpj_map",
-        "documentation": {}
-    },
-    {
-        "label": "parquet_files",
-        "kind": 5,
-        "importPath": "cnpj_map",
-        "description": "cnpj_map",
-        "peekOfCode": "parquet_files = [f for f in os.listdir(\"output\") if f.endswith(\".parquet\")]\nfor parquet_path in tqdm(parquet_files, desc='Lendo arquivos parquet:'):\n    full_path = os.path.join(\"output\", parquet_path)\n    itp = pd.read_parquet(full_path, engine=\"fastparquet\").itertuples(index=False)\n    df_temp = pd.DataFrame([\n        row for row in tqdm(itp, desc=f\"Processando {parquet_path}\")\n        if row.CNPJ_BÁSICO in set_cnpjs\n    ])\n    lst_names.append(df_temp)\ndf_final = pd.concat(lst_names, ignore_index=True)",
-        "detail": "cnpj_map",
-        "documentation": {}
-    },
-    {
-        "label": "df_final",
-        "kind": 5,
-        "importPath": "cnpj_map",
-        "description": "cnpj_map",
-        "peekOfCode": "df_final = pd.concat(lst_names, ignore_index=True)\ndf_final.to_excel(\"nome_cnpj.xlsx\", index=False)\nprint(\"FIM! 🎉\")",
-        "detail": "cnpj_map",
+        "importPath": "fake_cnpjs",
+        "description": "fake_cnpjs",
+        "peekOfCode": "set_cnpj = {\"\".join(filter(str.isdigit, faker.cnpj())) for i in range(10000)}\nwith open(\"cnpj/cnpjs.csv\", \"w+\") as arquivo:\n    arquivo.write(\"ds_cnpj_usuf\\n\")\n    for cnpj in set_cnpj:\n        arquivo.write(cnpj + \"\\n\")",
+        "detail": "fake_cnpjs",
         "documentation": {}
     },
     {
